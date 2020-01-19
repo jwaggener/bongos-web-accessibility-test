@@ -1,0 +1,9 @@
+Goes over basics of basics of connecting Arduino with Node.
+https://www.youtube.com/watch?v=8s2--hfsJDY
+
+Does your arduino serial port point to the correct USB port?
+
+'Standard Firmata'
+You'll be updloading this to your Arduino.
+
+Then you should be able run the node code and communicate with the Arduino.
