@@ -7,3 +7,6 @@ Does your arduino serial port point to the correct USB port?
 You'll be updloading this to your Arduino.
 
 Then you should be able run the node code and communicate with the Arduino.
+
+abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123
+							some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...some foo shit ...
