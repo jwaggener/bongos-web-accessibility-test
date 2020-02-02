@@ -2,77 +2,30 @@
 var five = require('johnny-five');
 var board = new five.Board();
 var robot = require('robotjs');
-var _ = require('lodash');
 
-const TAB = 'tab';
-const ENTER = 'enter';
-
-function navigateOrEnter(prev, cur, key=TAB) {
-  if( !prev && (cur) >= 1 ) {
-    console.log('key', key)
-    switch(key) {
-      case ENTER:
-      enter();
-      return;
-
-      default:
-      navigate()
-    }
-  }
-}
-
-const navigateOrEnterDebounce = _.debounce(navigateOrEnter);
+const period = 50;
 
 function navigate(prev, cur) {
-  // if( !prev && (cur) >= 1 ) {
-    // robot.typeString("navigate | ");
-    // robot.keyTap('tab');
-  // }
+  console.log('navigate...')
+  robot.typeString("navigate | ");
+  // robot.keyTap('tab');
 }
 
 function enter(prev, cur) {
-  // if( !prev && (cur) >= 1 ) {
-    // robot.typeString("  enter | ");
-    // robot.keyTap('enter');
-  // }
+  console.log('  enter...')
+  robot.typeString("  enter | ");
+  // robot.keyTap('enter');
 }
 
 class BongoControl extends five.Sensor {
-  constructor(sensorAddr, intervalFunc, period, key) {
+  constructor(sensorAddr, action) {
     super(sensorAddr);
 
+    this.action = action;
     this.amplitude = 0;
-    this.key = key;
-    this.intervalFunc = intervalFunc;
-    this.period = period;
     this.prev = null;
-
-
-
-    this.interval = () => {
-      const cur = this.getVelo();
-      this.intervalFunc(this.prev, cur, this.key);
-      this.prev = cur;
-      this.reset();
-    };
-
-    setInterval(
-      this.interval,
-      this.period
-    );
   }
 
-  getVelo(){
-    return this.amplitude/this.period * 100;
-  }
-
-  reset(){
-    this.amplitude = 0;
-  }
-
-  setAmp(val){
-    this.amplitude += val;
-  }
 }
 
 // notes on analog
@@ -83,24 +36,54 @@ board.on('ready', function() {
 
   const bongo01 = new BongoControl(
     'A0',
-    navigateOrEnterDebounce,
-    50,
-    TAB,
+    navigate,
   );
 
   const bongo02 = new BongoControl(
     'A1',
-    navigateOrEnterDebounce,
-    50,
-    ENTER,
+    enter,
   );
 
   bongo01.on('change', function() {
-    this.setAmp(this.scaleTo(0, this.period));
+    this.amplitude += this.scaleTo(0, period);
   });
 
   bongo02.on('change', function() {
-    this.setAmp(this.scaleTo(0, this.period));
+    this.amplitude += this.scaleTo(0, period);
   });
 
+  function ineterval() {
+    const bongo01Cur = bongo01.amplitude/period * 100;
+    const bongo02Cur = bongo02.amplitude/period * 100;
+
+
+
+    if( !bongo01.prev && bongo01Cur || !bongo02.prev && bongo02Cur ) {
+      // bongo01Cur >= bongo02Cur ? bongo01.action() : bongo02.action();
+      // if(bongo01Cur >= 6) { // navigate
+      //   bongo01.action();
+      // } else if(bongo02Cur >= 22) { //enter
+      //   bongo02.action()
+      // }
+      if(bongo01Cur >= bongo02Cur) {
+        if(bongo01Cur >= 6) { // navigate
+          bongo01.action();
+        }
+      } else {
+        if(bongo02Cur >= 22) { //enter
+          bongo02.action()
+        }
+      }
+      console.log('bongo01Cur ', bongo01Cur);
+      console.log('bongo02Cur ', bongo02Cur);
+      console.log('___');
+    }
+
+    bongo01.prev = bongo01Cur;
+    bongo01.amplitude = 0;
+    bongo02.prev = bongo02Cur;
+    bongo02.amplitude = 0;
+  }
+
+  setInterval(ineterval, period);
 });
