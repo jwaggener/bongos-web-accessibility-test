@@ -1,0 +1,30 @@
+{
+  "name": "bongos-web-accessibility-test",
+  "version": "1.0.0",
+  "description": "Works with microcontroller arduino standard firmata setup with vibration sensors as input.",
+  "main": "bongos.js",
+  "dependencies": {
+    "johnny-five": "^1.4.0",
+    "lodash": "^4.17.15",
+    "node-key-sender": "^1.0.11",
+    "robotjs": "^0.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node bongos"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwaggener/bongos-web-accessibility-test.git"
+  },
+  "keywords": [
+    "Accessibility",
+    "Bongos"
+  ],
+  "author": "Johnny Waggener",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jwaggener/bongos-web-accessibility-test/issues"
+  },
+  "homepage": "https://github.com/jwaggener/bongos-web-accessibility-test#readme"
+}
