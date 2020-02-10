@@ -5,13 +5,15 @@ var robot = require('robotjs');
 
 const period = 50;
 
-function navigate(prev, cur) {
+function navigate(amp) {
+  console.log('amp', amp);
   console.log('navigate...')
   // robot.typeString("navigate | ");
   robot.keyTap('tab');
 }
 
-function enter(prev, cur) {
+function enter(amp) {
+  console.log('amp', amp);
   console.log('  enter...')
   // robot.typeString("  enter | ");
   robot.keyTap('enter');
@@ -56,15 +58,12 @@ board.on('ready', function() {
     const amplitude1 = bongo01.vibration/period * 100;
     const amplitude2 = bongo02.vibration/period * 100;
 
-    // if it's 0
-    // could actually check changes in amplitude from prev to now
+    // check changes in amplitude from prev to now
     // might work better?
-    if( !bongo01.prev && amplitude1 || !bongo02.prev && amplitude2 ) {
-      if(amplitude1 >= 6) { // navigate
-        bongo01.action();
-      } else if(amplitude2 >= 22) { //enter
-        bongo02.action()
-      }
+    if(amplitude1 >= 6) { // navigate
+      bongo01.action(amplitude1);
+    } else if(amplitude2 >= 12) { //enter
+      bongo02.action(amplitude2)
     }
 
     bongo01.prev = amplitude1;
