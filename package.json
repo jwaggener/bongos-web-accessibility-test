@@ -5,7 +5,7 @@
   "main": "bongos.js",
   "dependencies": {
     "johnny-five": "^1.4.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "node-key-sender": "^1.0.11",
     "robotjs": "^0.6.0"
   },
